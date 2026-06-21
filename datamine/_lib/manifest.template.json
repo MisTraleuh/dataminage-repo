@@ -1,0 +1,66 @@
+{
+  "game_slug": "example-game",
+  "display_name": "Example Game",
+  "engine": "godot4-csharp",
+  "engine_detection": {
+    "pending": false,
+    "score": 0.97,
+    "confidence": "high",
+    "alternatives": [],
+    "fingerprints_version": "1",
+    "detected_at": "2026-01-01T00:00:00Z"
+  },
+  "source": {
+    "type": "zip",
+    "path": "<local, gitignored path to the source zip or install dir>",
+    "sha256": "<sha256 of the source>"
+  },
+  "game_version": "1.0.0",
+  "languages": ["eng", "fra"],
+  "last_datamine_at": "2026-01-01T00:00:00Z",
+
+  "entities": {
+    "cards": {
+      "count": 576,
+      "file": "data/cards.json",
+      "name_field": "name",
+      "image_field": "image",
+      "relations": [
+        { "field": "keywords", "target": "keywords" }
+      ]
+    },
+    "characters": {
+      "count": 19,
+      "file": "data/characters.json",
+      "name_field": "name",
+      "image_field": "image",
+      "relations": [
+        { "field": "abilities", "target": "abilities" }
+      ]
+    }
+  },
+
+  "wiki_coverage": {
+    "Cards": "cards",
+    "Relics": "relics",
+    "Bosses": "characters",
+    "Achievements": "n/a — not present in game data, confirmed absent after binary decompile"
+  },
+
+  "image_coverage": {
+    "cards": { "extracted": 576, "total": 576, "pct": 100 },
+    "characters": { "extracted": 18, "total": 19, "pct": 95 }
+  },
+
+  "reference_integrity": {
+    "characters.abilities -> abilities": { "refs": 84, "broken": 0 }
+  },
+
+  "bundle": {
+    "built_at": "2026-01-01T00:00:00Z",
+    "validated": true,
+    "validator_version": "1"
+  },
+
+  "created_at": "2026-01-01T00:00:00Z"
+}
