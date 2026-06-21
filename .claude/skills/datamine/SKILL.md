@@ -144,6 +144,18 @@ magic numbers, enums). Mono/IL2CPP/.NET → `ilspycmd`/`Il2CppDumper`; GDScript 
 headless** + `strings -a -n 8`. **Forbidden** to mark a category "hard-coded in the
 engine, not extractable" without an attempted binary decompile.
 
+### Phase 5.5 — Total comprehension (the `dir()` of the whole game)
+Before deciding what to extract, **understand the game ENTIRELY**. Run the
+**`/knowledge`** skill (now available globally) — or an equivalent exhaustive read —
+over the decompiled code + extracted data with **zero shortcuts**: every code
+module, every data structure, every asset type, every enum/table is opened and
+noted. Produce `datamine/<slug>/game_context.md`: a complete map of the game's data
+model — what entity types exist, where each lives (file / table / class), every
+field and its type, the relations between them, and where the images/audio for each
+live. **Fan out with a workflow** (one sub-agent per code area / asset tree). This
+map DRIVES Phases 6–8: you extract from full understanding, never guesses. Any "I
+didn't open that folder/class" is a gap to close before moving on.
+
 ### Phase 6 — Entity inventory + coverage cross-check
 List the models in the decompiled code / data. Then build the coverage table by
 crossing your inventory against `wiki_categories.json`: **every category with
@@ -151,6 +163,23 @@ crossing your inventory against `wiki_categories.json`: **every category with
 *everything* a wiki needs (entities + images + i18n text). Ask the user only to
 resolve *architecture* ambiguities (one polymorphic table vs four), never to
 approve exhaustiveness — that's the default.
+
+### Phase 6.5 — External knowledge enrichment (be gorged with context)
+Now make the bundle RICH. Aggregate EXTERNAL knowledge — Fandom (its API +
+`Special:Categories` + entity lists), the game's **subreddit**, **IGDB / Steam /
+the official site / patch notes** — into `datamine/<slug>/knowledge_pack.json`. Use
+it for TWO things only:
+1. **Harden exhaustiveness** — cross-check your entity inventory against what these
+   sources say exists. Anything they list that you don't have is a gap: investigate
+   and re-extract **from the GAME**. (This catches what game data alone missed.)
+2. **Enrich descriptions / lore / context** — write better, ORIGINAL descriptions
+   and notes informed by this context (what players call things, why an entity
+   matters, meta/usage).
+**Boundary (non-negotiable):** the canonical entity data and ALL images come from
+the GAME — never copied from a third-party wiki. External sources are for COVERAGE
+and CONTEXT only: never paste their prose, never download their images; respect each
+source's ToS (you are building the definitive *first-party* wiki). Drive the fetch
+with a workflow (one sub-agent per source); be skeptical, cite, and de-duplicate.
 
 ### Phase 7 — Parsing → `parsed/<lang>/<entity>.json`
 Prefer an existing OSS parser (search GitHub: `<game> datamine`, `<game> wiki
