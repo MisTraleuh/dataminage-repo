@@ -1,14 +1,14 @@
 /**
- * scripts/datamine/_lib/shallow-extract.mjs
+ * datamine/_lib/shallow-extract.mjs
  * Mode "always-works" — extraction par heuristiques génériques, fonctionne sur
  * n'importe quel zip ou installdir, indépendamment de l'engine.
  *
  * Sortie : <output-dir>/shallow_summary.json + sous-dossiers populated.
  *
  * Usage :
- *   node scripts/datamine/_lib/shallow-extract.mjs <game-slug>
- *   node scripts/datamine/_lib/shallow-extract.mjs <game-slug> --source=<path>
- *   node scripts/datamine/_lib/shallow-extract.mjs <game-slug> --max-strings-per-binary=20000
+ *   node datamine/_lib/shallow-extract.mjs <game-slug>
+ *   node datamine/_lib/shallow-extract.mjs <game-slug> --source=<path>
+ *   node datamine/_lib/shallow-extract.mjs <game-slug> --max-strings-per-binary=20000
  *
  * Quand utilisé via le skill /datamine, <game-slug> doit avoir un workspace
  * initialisé (manifest.json présent) et zip-unpacked/ peuplé. Sinon utiliser
@@ -464,7 +464,7 @@ function parseArgs(argv) {
 function main() {
   const args = parseArgs(process.argv);
   if (!args.gameSlug) {
-    console.error('Usage : node scripts/datamine/_lib/shallow-extract.mjs <game-slug> [--source=<path>] [--max-strings-per-binary=N] [--output-dir=<path>]');
+    console.error('Usage : node datamine/_lib/shallow-extract.mjs <game-slug> [--source=<path>] [--max-strings-per-binary=N] [--output-dir=<path>]');
     process.exit(1);
   }
   try {

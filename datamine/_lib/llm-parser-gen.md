@@ -51,8 +51,8 @@ Lire les 5 samples **avant d'écrire une ligne de regex**. Identifier :
 ## Étape 3 — Écrire le parser depuis le template
 
 Templates fournis :
-- `scripts/datamine/_lib/parser-template.py` (recommandé pour C# décompilé)
-- `scripts/datamine/_lib/parser-template.ts` (recommandé pour GDScript / Lua / JSON)
+- `datamine/_lib/parser-template.py` (recommandé pour C# décompilé)
+- `datamine/_lib/parser-template.ts` (recommandé pour GDScript / Lua / JSON)
 
 Règles strictes :
 - **Regex ancrées** : `^...$` ou délimiteurs explicites — pas de match accidentel
@@ -75,9 +75,9 @@ ad-hoc. Le pattern doit être robuste, pas patché.
 ## Étape 5 — Validation à grande échelle
 
 ```bash
-python3 scripts/datamine/<slug>/parsers/parse_<entity>.py --self-test
+python3 datamine/<slug>/parsers/parse_<entity>.py --self-test
 # OU
-pnpm tsx scripts/datamine/<slug>/parsers/parse_<entity>.ts --self-test
+pnpm tsx datamine/<slug>/parsers/parse_<entity>.ts --self-test
 ```
 
 Le self-test doit lancer le parser sur **TOUS** les fichiers de la catégorie

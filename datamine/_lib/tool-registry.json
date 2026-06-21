@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "_comment": "Registre des outils utilisés par le pipeline datamine. Les SHA-256 sont calculés manuellement la 1ère fois et committés (cf scripts/datamine/_lib/README.md). install-tool.mjs refuse tout download sans checksum référencé.",
+  "_comment": "Registre des outils utilisés par le pipeline datamine. Les SHA-256 sont calculés manuellement la 1ère fois et committés (cf datamine/_lib/README.md). install-tool.mjs refuse tout download sans checksum référencé.",
   "_changelog": {
     "v2 (2026-04-26)": "STS2 lessons: gdre_tools v0.6.2 → v2.4.0 (Pack v3 / Godot 4.3+ support), ilspycmd 8.2 → 9.1 (.NET 6 → .NET 8). Ajout strategy 'fallback latest release' si pin incompatible avec le contenu."
   },

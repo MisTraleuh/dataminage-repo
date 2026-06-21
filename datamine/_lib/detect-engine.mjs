@@ -1,12 +1,12 @@
 /**
- * scripts/datamine/_lib/detect-engine.mjs
+ * datamine/_lib/detect-engine.mjs
  * Détecte l'engine d'un jeu à partir d'un zip ou d'un dossier d'install,
- * en appliquant la matrice scripts/datamine/_lib/engine-fingerprints.json.
+ * en appliquant la matrice datamine/_lib/engine-fingerprints.json.
  *
  * Usage :
- *   node scripts/datamine/_lib/detect-engine.mjs <path>
- *   node scripts/datamine/_lib/detect-engine.mjs <path> --json
- *   node scripts/datamine/_lib/detect-engine.mjs <path> --max-depth=4
+ *   node datamine/_lib/detect-engine.mjs <path>
+ *   node datamine/_lib/detect-engine.mjs <path> --json
+ *   node datamine/_lib/detect-engine.mjs <path> --max-depth=4
  *
  * Si <path> est un .zip → on lit le listing sans décompresser (via `unzip -l`).
  * Si <path> est un dossier → glob récursif.
@@ -296,14 +296,14 @@ function printHumanReport(result) {
     console.log('⚠ Aucun engine identifié — basculer en mode shallow extraction (38.9).');
   } else if (result.confidence === 'low' || result.confidence === 'medium') {
     console.log('');
-    console.log('⚠ Confiance basse/moyenne — demander confirmation à Nathan avant de poursuivre.');
+    console.log('⚠ Confiance basse/moyenne — demander confirmation avant de poursuivre.');
   }
 }
 
 function main() {
   const args = parseArgs(process.argv);
   if (!args.path) {
-    console.error('Usage : node scripts/datamine/_lib/detect-engine.mjs <path> [--json] [--max-depth=N]');
+    console.error('Usage : node datamine/_lib/detect-engine.mjs <path> [--json] [--max-depth=N]');
     process.exit(1);
   }
   if (Number.isNaN(args.maxDepth) || args.maxDepth < 1) {

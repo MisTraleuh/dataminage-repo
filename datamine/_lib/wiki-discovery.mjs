@@ -1,5 +1,5 @@
 /**
- * scripts/datamine/_lib/wiki-discovery.mjs
+ * datamine/_lib/wiki-discovery.mjs
  * Phase 0.7 du skill /datamine — découverte des wikis publics qui répondent
  * pour un jeu donné, par test parallèle de plusieurs patterns d'URL.
  *
@@ -8,9 +8,9 @@
  * meilleure URL avec ce prompt »).
  *
  * Usage :
- *   node scripts/datamine/_lib/wiki-discovery.mjs <slug>
- *   node scripts/datamine/_lib/wiki-discovery.mjs <slug> --name="Display Name"
- *   node scripts/datamine/_lib/wiki-discovery.mjs <slug> --json
+ *   node datamine/_lib/wiki-discovery.mjs <slug>
+ *   node datamine/_lib/wiki-discovery.mjs <slug> --name="Display Name"
+ *   node datamine/_lib/wiki-discovery.mjs <slug> --json
  *
  * Patterns testés (par priorité décroissante) :
  *   1. <slug>.wiki.gg/wiki/Special:Categories     (wiki.gg = souvent officiel, ToS friendly)
@@ -134,7 +134,7 @@ function printHumanReport(r) {
 async function main() {
   const args = parseArgs(process.argv);
   if (!args.slug) {
-    console.error('Usage : node scripts/datamine/_lib/wiki-discovery.mjs <slug> [--name="Display Name"] [--json]');
+    console.error('Usage : node datamine/_lib/wiki-discovery.mjs <slug> [--name="Display Name"] [--json]');
     process.exit(1);
   }
   try {

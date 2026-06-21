@@ -1,10 +1,10 @@
 /**
- * scripts/datamine/_lib/check-tools.mjs
+ * datamine/_lib/check-tools.mjs
  * Vérifie que les outils requis pour un engine donné sont installés.
  *
  * Usage :
- *   node scripts/datamine/_lib/check-tools.mjs <engine-id>
- *   node scripts/datamine/_lib/check-tools.mjs <engine-id> --json
+ *   node datamine/_lib/check-tools.mjs <engine-id>
+ *   node datamine/_lib/check-tools.mjs <engine-id> --json
  *
  * Exit codes :
  *   0 = tous les outils OK
@@ -134,7 +134,7 @@ function checkTool(toolId, registry) {
         reason: result.reason,
         version: result.version,
         install_via: tool.install_via,
-        install_hint: result.available ? null : `node scripts/datamine/_lib/install-tool.mjs ${toolId}`,
+        install_hint: result.available ? null : `node datamine/_lib/install-tool.mjs ${toolId}`,
       };
     }
     case 'dotnet-tool': {
@@ -213,14 +213,14 @@ function printHumanReport(report) {
   if (report.ok) {
     console.log('Tous les outils requis sont disponibles.');
   } else {
-    console.log('⚠ Certains outils manquent. Lancer `node scripts/datamine/_lib/install-tool.mjs --engine ' + report.engine + '` ou suivre les hints ci-dessus.');
+    console.log('⚠ Certains outils manquent. Lancer `node datamine/_lib/install-tool.mjs --engine ' + report.engine + '` ou suivre les hints ci-dessus.');
   }
 }
 
 function main() {
   const args = parseArgs(process.argv);
   if (!args.engine) {
-    console.error('Usage : node scripts/datamine/_lib/check-tools.mjs <engine-id> [--json]');
+    console.error('Usage : node datamine/_lib/check-tools.mjs <engine-id> [--json]');
     process.exit(2);
   }
   try {

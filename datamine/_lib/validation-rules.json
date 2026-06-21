@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "_comment": "Sanity checks par engine et phase. Le skill /datamine appelle validate-extraction.mjs après chaque phase 4/5/7. Si KO → bascule plan B/C. Toutes les paths sont relatives au workspace du jeu (scripts/datamine/<game-slug>/).",
+  "_comment": "Sanity checks par engine et phase. Le skill /datamine appelle validate-extraction.mjs après chaque phase 4/5/7. Si KO → bascule plan B/C. Toutes les paths sont relatives au workspace du jeu (datamine/<game-slug>/).",
   "phases": ["after_phase_4_extract", "after_phase_5_decompile", "after_phase_7_parse"],
   "rules": {
     "godot4-csharp": {

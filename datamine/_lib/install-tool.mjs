@@ -1,15 +1,15 @@
 /**
- * scripts/datamine/_lib/install-tool.mjs
+ * datamine/_lib/install-tool.mjs
  * Installe un outil de la matrice toolchain.
  *
  * Usage :
- *   node scripts/datamine/_lib/install-tool.mjs <tool-id>
- *   node scripts/datamine/_lib/install-tool.mjs --engine <engine-id>     # tous les outils d'un engine
- *   node scripts/datamine/_lib/install-tool.mjs <tool-id> --bootstrap-checksums  # accepte le 1er download sans SHA256, l'imprime
+ *   node datamine/_lib/install-tool.mjs <tool-id>
+ *   node datamine/_lib/install-tool.mjs --engine <engine-id>     # tous les outils d'un engine
+ *   node datamine/_lib/install-tool.mjs <tool-id> --bootstrap-checksums  # accepte le 1er download sans SHA256, l'imprime
  *
  * Refuse de télécharger un binaire sans checksum SHA-256 référencé dans
  * tool-registry.json — sauf si --bootstrap-checksums (procédure 1ʳᵉ install
- * documentée dans scripts/datamine/_lib/README.md).
+ * documentée dans datamine/_lib/README.md).
  */
 
 import { readFileSync, writeFileSync, existsSync, mkdirSync, createWriteStream, createReadStream, chmodSync, copyFileSync } from 'node:fs';
@@ -317,9 +317,9 @@ async function main() {
   const args = parseArgs(process.argv);
   if (!args.toolId && !args.engineId) {
     console.error('Usage :');
-    console.error('  node scripts/datamine/_lib/install-tool.mjs <tool-id>');
-    console.error('  node scripts/datamine/_lib/install-tool.mjs --engine <engine-id>');
-    console.error('  node scripts/datamine/_lib/install-tool.mjs <tool-id> --bootstrap-checksums');
+    console.error('  node datamine/_lib/install-tool.mjs <tool-id>');
+    console.error('  node datamine/_lib/install-tool.mjs --engine <engine-id>');
+    console.error('  node datamine/_lib/install-tool.mjs <tool-id> --bootstrap-checksums');
     process.exit(1);
   }
   try {

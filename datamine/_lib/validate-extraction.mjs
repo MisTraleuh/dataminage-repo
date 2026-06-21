@@ -1,10 +1,10 @@
 /**
- * scripts/datamine/_lib/validate-extraction.mjs
+ * datamine/_lib/validate-extraction.mjs
  * Sanity checks post-phase pour fail-fast et bascule plan B/C dans le pipeline.
  *
  * Usage :
- *   node scripts/datamine/_lib/validate-extraction.mjs <game-slug> <engine-id> <phase>
- *   node scripts/datamine/_lib/validate-extraction.mjs <game-slug> <engine-id> <phase> --json
+ *   node datamine/_lib/validate-extraction.mjs <game-slug> <engine-id> <phase>
+ *   node datamine/_lib/validate-extraction.mjs <game-slug> <engine-id> <phase> --json
  *
  * <phase> : after_phase_4_extract | after_phase_5_decompile | after_phase_7_parse
  *
@@ -254,7 +254,7 @@ function printHumanReport(report) {
 function main() {
   const args = parseArgs(process.argv);
   if (!args.gameSlug || !args.engineId || !args.phase) {
-    console.error('Usage : node scripts/datamine/_lib/validate-extraction.mjs <game-slug> <engine-id> <phase> [--json]');
+    console.error('Usage : node datamine/_lib/validate-extraction.mjs <game-slug> <engine-id> <phase> [--json]');
     console.error('Phases : after_phase_4_extract | after_phase_5_decompile | after_phase_7_parse');
     process.exit(2);
   }

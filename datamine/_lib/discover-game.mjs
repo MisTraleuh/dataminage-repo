@@ -1,5 +1,5 @@
 /**
- * scripts/datamine/_lib/discover-game.mjs
+ * datamine/_lib/discover-game.mjs
  * Investigation "tout savoir sur ce zip avant de l'extraire".
  *
  * À partir d'un chemin de zip ou d'un dossier, retourne un JSON contenant :
@@ -266,7 +266,7 @@ function makePlan(engine, zipFormat, signals, hasPublicSource) {
   if (hasPublicSource) {
     plan.push({
       step: 'phase-0-public-source',
-      action: 'Demander à Nathan : utiliser source publique ou pipeline complet ?',
+      action: 'Demander confirmation : source publique ou pipeline complet ?',
     });
   }
   plan.push({ step: 'phase-1-bootstrap', action: 'init-workspace + extract-zip (sélectif si > 500 MB)' });
@@ -423,7 +423,7 @@ function parseArgs(argv) {
 function main() {
   const args = parseArgs(process.argv);
   if (!args.target) {
-    console.error('Usage : node scripts/datamine/_lib/discover-game.mjs <zip-or-dir> [--json]');
+    console.error('Usage : node datamine/_lib/discover-game.mjs <zip-or-dir> [--json]');
     process.exit(1);
   }
   try {

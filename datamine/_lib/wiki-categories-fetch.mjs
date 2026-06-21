@@ -1,20 +1,20 @@
 /**
- * scripts/datamine/_lib/wiki-categories-fetch.mjs
+ * datamine/_lib/wiki-categories-fetch.mjs
  * Phase 0.7 du skill /datamine — extraction automatique des catégories Mediawiki.
  *
  * Prend un slug de jeu, trouve son wiki via wiki-discovery.mjs (ou --url=),
  * fetch Special:Categories avec pagination, parse les catégories, et écrit
- * scripts/datamine/<slug>/wiki_categories.json.
+ * datamine/<slug>/wiki_categories.json.
  *
  * ToS : ne fetch que Special:Categories (max 5 pages), jamais les pages
  * individuelles d'entités. Equivalent à un humain qui ouvre la page dans un
  * navigateur pour comprendre la structure du wiki.
  *
  * Usage :
- *   node scripts/datamine/_lib/wiki-categories-fetch.mjs <slug>
- *   node scripts/datamine/_lib/wiki-categories-fetch.mjs <slug> --name="Display Name"
- *   node scripts/datamine/_lib/wiki-categories-fetch.mjs <slug> --url=https://... (bypass discovery)
- *   node scripts/datamine/_lib/wiki-categories-fetch.mjs <slug> --json
+ *   node datamine/_lib/wiki-categories-fetch.mjs <slug>
+ *   node datamine/_lib/wiki-categories-fetch.mjs <slug> --name="Display Name"
+ *   node datamine/_lib/wiki-categories-fetch.mjs <slug> --url=https://... (bypass discovery)
+ *   node datamine/_lib/wiki-categories-fetch.mjs <slug> --json
  *
  * Exit codes :
  *   0 = wiki trouvé + JSON écrit
@@ -212,7 +212,7 @@ function detectSourceType(url) {
 
 /**
  * Récupère et parse les catégories du wiki pour un jeu.
- * Écrit le résultat dans scripts/datamine/<slug>/wiki_categories.json.
+ * Écrit le résultat dans datamine/<slug>/wiki_categories.json.
  *
  * @param {string} slug - game slug (kebab-case)
  * @param {string|null} displayName - nom lisible du jeu (optionnel)
@@ -368,14 +368,14 @@ function printHumanReport(r) {
   }
 
   console.log('');
-  console.log(` Écrit dans : scripts/datamine/${r.slug}/wiki_categories.json`);
+  console.log(` Écrit dans : datamine/${r.slug}/wiki_categories.json`);
   console.log('═'.repeat(W));
 }
 
 async function main() {
   const args = parseArgs(process.argv);
   if (!args.slug) {
-    console.error('Usage : node scripts/datamine/_lib/wiki-categories-fetch.mjs <slug> [--name="Display Name"] [--url=URL] [--json]');
+    console.error('Usage : node datamine/_lib/wiki-categories-fetch.mjs <slug> [--name="Display Name"] [--url=URL] [--json]');
     process.exit(1);
   }
   try {

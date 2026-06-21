@@ -1,5 +1,5 @@
 /**
- * scripts/datamine/_lib/extract-zip.mjs
+ * datamine/_lib/extract-zip.mjs
  * Décompression universelle de zips de jeux. Gère :
  *  - ZIP standard (méthode 8 deflate, 0 stored)
  *  - ZIP avec Zstandard (méthode 93) — typique des zips AnkerGames récents

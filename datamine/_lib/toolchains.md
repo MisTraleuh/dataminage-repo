@@ -29,7 +29,7 @@ lui-même. Tous les zips ne sont pas identiques :
 `unzip` plante avec "unsupported compression method 93". Solution : Python +
 lib `zstandard` avec monkey-patch `zipfile._get_decompressor`.
 
-**Stratégie recommandée** : utiliser `node scripts/datamine/_lib/extract-zip.mjs` :
+**Stratégie recommandée** : utiliser `node datamine/_lib/extract-zip.mjs` :
 - `--probe` : détecte les méthodes utilisées sans extraire + indique le meilleur extracteur dispo
 - `--out=<dir>` : extrait avec auto-fallback (unzip → Python+zstd → 7z → WinRAR)
 - `--pattern="A/*.pck"` : extraction sélective (économise le disque sur les gros zips)
@@ -45,7 +45,7 @@ Si aucun extracteur n'est dispo pour les méthodes du zip :
 Quel que soit l'engine, après extraction le workspace doit contenir :
 
 ```
-scripts/datamine/<game-slug>/extracted/
+datamine/<game-slug>/extracted/
 ├── raw/                          # assets bruts (images, locale, configs)
 ├── decompiled/                   # code décompilé (.cs, .gd, .gml, …)
 └── manifest.json                 # méta extraction (engine, plan utilisé, durée, counts)
@@ -294,7 +294,7 @@ Support partiel — meilleur fallback quand FModel cale sur des packs chiffrés.
 
 ```bash
 UndertaleModCli.exe load "<game-dir>/data.win" \
-  --script="<repo>/scripts/datamine/_lib/extract-gms.csx" \
+  --script="<repo>/datamine/_lib/extract-gms.csx" \
   --output="extracted/raw"
 ```
 
@@ -408,8 +408,8 @@ Pas d'offsets stockés — tout est séquentiel. Pas de compression interne
 ### Plan A — `mewgenics_gpak_util` (Tiftid, Zig)
 
 ```bash
-node scripts/datamine/_lib/install-tool.mjs mewgenics_gpak_util
-./scripts/datamine/_lib/.tools/mewgenics_gpak_util/mewgenics_gpak_util.exe \
+node datamine/_lib/install-tool.mjs mewgenics_gpak_util
+./datamine/_lib/.tools/mewgenics_gpak_util/mewgenics_gpak_util.exe \
   unpack <path/to/resources.gpak> <output-dir>
 ```
 
@@ -505,7 +505,7 @@ prématuré rate ~50 % du contenu.
 
 **Plan C — IDA Free** :
 Pour les cas où Ghidra ne sort rien d'utile (binaire packed/obfusqué).
-Hors scope du pipeline automatique → escalade à Nathan.
+Hors scope du pipeline automatique → escalade à l'utilisateur.
 
 **À retenir** : la donnée hard-codée dans l'engine **est extractible**.
 Si la décompil sort 0 candidat utile, documente la tentative dans
@@ -540,7 +540,7 @@ globales pour identifier cards/items/cats/etc.
 strings -a -n 8 "<game-dir>/<Game>.exe" > extracted/raw/strings/<game>.txt
 
 # Glob des images, configs, sons
-node scripts/datamine/_lib/shallow-extract.mjs "<game-dir>"
+node datamine/_lib/shallow-extract.mjs "<game-dir>"
 ```
 
 → Voir `38.9 — Mode shallow extraction` pour les détails.
@@ -554,7 +554,7 @@ node scripts/datamine/_lib/shallow-extract.mjs "<game-dir>"
 ### Plan C — IDA Free
 
 - Pour reverse-engineering avancé manuel
-- Hors scope du pipeline automatique — escalade à Nathan
+- Hors scope du pipeline automatique — escalade à l'utilisateur
 
 ---
 
@@ -579,7 +579,7 @@ sortie, même dégradée.
 2. Ajouter une section dans ce document avec plans A/B/C
 3. Ajouter les outils dans `tool-registry.json` avec checksums
 4. Ajouter les règles dans `validation-rules.json`
-5. Tester `node scripts/datamine/_lib/detect-engine.mjs <zip-test>` doit retourner le bon engine
+5. Tester `node datamine/_lib/detect-engine.mjs <zip-test>` doit retourner le bon engine
 
 ---
 
