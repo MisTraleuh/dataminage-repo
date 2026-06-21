@@ -1,0 +1,30 @@
+# ── Secrets / local config ──────────────────────────────────────────────────
+datamine.config.json
+*service-account*.json
+*.pem
+*.key
+.env
+.env.*
+
+# ── Source games — NEVER commit a game ──────────────────────────────────────
+# Put downloaded games / zips wherever you like locally; keep them out of git.
+games/
+game-zip/
+*.zip
+
+# ── Per-game workspace: heavy, reproducible intermediates are gitignored ─────
+# Kept in git per game: manifest.json, parsers/, out/ (the bundle).
+datamine/*/zip-unpacked/
+datamine/*/extracted/
+datamine/*/parsed/
+datamine/*/.tools/
+
+# Shared tool binaries downloaded on demand
+datamine/_lib/.tools/
+datamine/_lib/.tools-cache/
+datamine/_lib/installed.json
+
+# ── Node / misc ─────────────────────────────────────────────────────────────
+node_modules/
+.DS_Store
+*.log

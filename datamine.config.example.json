@@ -1,0 +1,15 @@
+{
+  "_doc": "Copy to datamine.config.json (gitignored) only if you use an OPTIONAL export adapter. The datamine pipeline itself needs NONE of this — the bundle in out/ is the deliverable. See docs/EXPORT-ADAPTERS.md.",
+  "target": "static",
+  "postgres": {
+    "schemaFromSlug": true,
+    "urlEnv": "DATABASE_URL"
+  },
+  "objectStorage": {
+    "provider": "gcs",
+    "bucket": "<your-cdn-bucket>",
+    "cdnBase": "https://<your-cdn-host>",
+    "keyTemplate": "{slug}/{entity_type}/{id}.{ext}",
+    "credentialsEnv": "STORAGE_CREDENTIALS_JSON"
+  }
+}
