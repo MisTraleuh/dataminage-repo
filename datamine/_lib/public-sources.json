@@ -1,0 +1,13 @@
+{
+  "_doc": "Optional registry of public data sources (OSS dumps, community APIs, parser repos) per game. When a trustworthy source exists, you MAY seed the bundle from it instead of running the full extraction pipeline — still produce a valid bundle. Add entries as you discover them. This file ships empty by design: it is game-specific, not project-specific.",
+  "_schema": {
+    "<game-slug>": {
+      "type": "rest-api | json-dump | parser-repo",
+      "endpoint": "https://… (for rest-api / json-dump)",
+      "repo": "owner/name (for parser-repo, an OSS datamine you can reuse read-only)",
+      "license": "license of the source — respect it",
+      "notes": "how to use it; freshness caveats"
+    }
+  },
+  "sources": {}
+}

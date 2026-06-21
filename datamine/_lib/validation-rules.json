@@ -1,0 +1,164 @@
+{
+  "version": 1,
+  "_comment": "Sanity checks par engine et phase. Le skill /datamine appelle validate-extraction.mjs après chaque phase 4/5/7. Si KO → bascule plan B/C. Toutes les paths sont relatives au workspace du jeu (scripts/datamine/<game-slug>/).",
+  "phases": ["after_phase_4_extract", "after_phase_5_decompile", "after_phase_7_parse"],
+  "rules": {
+    "godot4-csharp": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "dir_exists", "path": "extracted/raw/localization" },
+        { "type": "min_dir_count", "path": "extracted/raw/localization", "min": 1, "description": "Au moins 1 langue (eng minimum)" },
+        { "type": "min_total_size_mb", "path": "extracted/raw", "min": 50, "description": "PCK extrait fait normalement >50MB" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "dir_exists", "path": "extracted/decompiled" },
+        { "type": "min_file_count", "path": "extracted/decompiled", "min": 500, "glob": "**/*.cs", "description": "ILSpy produit normalement >500 .cs" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "dir_exists", "path": "parsed" },
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "godot4-gdscript": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "min_total_size_mb", "path": "extracted/raw", "min": 10 }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "min_file_count", "path": "extracted/raw", "min": 50, "glob": "**/*.{gd,gdc}", "description": "GDScripts (recovered ou bytecode)" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "godot3": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "min_file_count", "path": "extracted/raw", "min": 30, "glob": "**/*.{gd,gdc}" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "unity-mono": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "file_exists_glob", "path": "extracted/raw", "glob": "**/Assemblies/Assembly-CSharp.dll", "description": "AssetRipper doit produire Assembly-CSharp.dll", "or_glob": "**/ScriptableObjects/**" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "dir_exists", "path": "extracted/decompiled" },
+        { "type": "min_file_count", "path": "extracted/decompiled", "min": 100, "glob": "**/*.cs" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "unity-il2cpp": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "file_exists_glob", "path": "extracted", "glob": "**/DummyDll/Assembly-CSharp.dll", "description": "IL2CppDumper doit produire des dummy DLLs" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "min_file_count", "path": "extracted/decompiled", "min": 100, "glob": "**/*.cs" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "ue4": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "min_file_count", "path": "extracted/raw", "min": 50, "glob": "**/*.{json,uasset}" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "always_pass", "description": "UE4 = pas de décompilation utile (C++ binaire)" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "ue5": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "min_file_count", "path": "extracted/raw", "min": 50, "glob": "**/*.{json,uasset}" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "always_pass", "description": "UE5 = idem UE4" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "gms2": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "min_file_count", "path": "extracted/raw", "min": 20, "glob": "**/*.{gml,json}" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "always_pass", "description": "UndertaleModTool décompile pendant l'extraction" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "gms1": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "always_pass" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "lua-love2d": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "min_file_count", "path": "extracted/raw", "min": 5, "glob": "**/*.lua" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "always_pass", "description": "Lua = pas de decompilation" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "electron": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" },
+        { "type": "min_file_count", "path": "extracted/raw", "min": 5, "glob": "**/*.{js,json}" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "always_pass" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "min_file_count", "path": "parsed", "min": 1, "glob": "**/*.json" }
+      ]
+    },
+    "native": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "always_pass", "description": "native = mode shallow recommandé" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "always_pass", "description": "native = parsed via shallow_summary.json" }
+      ]
+    },
+    "unknown": {
+      "after_phase_4_extract": [
+        { "type": "dir_exists", "path": "extracted/raw" }
+      ],
+      "after_phase_5_decompile": [
+        { "type": "always_pass" }
+      ],
+      "after_phase_7_parse": [
+        { "type": "always_pass" }
+      ]
+    }
+  }
+}

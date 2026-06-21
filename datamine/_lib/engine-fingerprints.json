@@ -1,0 +1,206 @@
+{
+  "version": 1,
+  "scoring": {
+    "primary_match": 10,
+    "secondary_match": 3,
+    "exclusion_match": -5,
+    "min_score_high_confidence": 13,
+    "high_vs_next_ratio": 1.5
+  },
+  "engines": [
+    {
+      "id": "godot4-csharp",
+      "name": "Godot 4 + C# (.NET)",
+      "primary": ["**/*.pck"],
+      "primary_any": false,
+      "secondary": [
+        "**/data_*_*/coreclr.dll",
+        "**/data_*_*/GodotSharp.dll",
+        "**/*.runtimeconfig.json",
+        "**/data_*_*/sts2.dll",
+        "**/data_*_*/hostfxr.dll"
+      ],
+      "exclusions": [],
+      "min_secondary": 1
+    },
+    {
+      "id": "godot4-gdscript",
+      "name": "Godot 4 + GDScript only",
+      "primary": ["**/*.pck"],
+      "primary_any": false,
+      "secondary": [
+        "**/Godot_v4*",
+        "**/launch_d3d12.bat",
+        "**/launch_vulkan.bat"
+      ],
+      "exclusions": [
+        "**/data_*_*/coreclr.dll",
+        "**/data_*_*/GodotSharp.dll"
+      ],
+      "min_secondary": 0
+    },
+    {
+      "id": "godot3",
+      "name": "Godot 3",
+      "primary": ["**/*.pck"],
+      "primary_any": false,
+      "secondary": [
+        "**/Godot_v3*"
+      ],
+      "exclusions": [
+        "**/data_*_*/coreclr.dll",
+        "**/launch_vulkan.bat"
+      ],
+      "min_secondary": 1
+    },
+    {
+      "id": "unity-mono",
+      "name": "Unity (Mono)",
+      "primary": ["**/*_Data/Managed/Assembly-CSharp.dll"],
+      "primary_any": false,
+      "secondary": [
+        "**/UnityPlayer.dll",
+        "**/*_Data/Managed/UnityEngine.dll",
+        "**/*_Data/Resources/unity default resources",
+        "**/*_Data/globalgamemanagers"
+      ],
+      "exclusions": [
+        "**/*_Data/il2cpp_data/Metadata/global-metadata.dat"
+      ],
+      "min_secondary": 1
+    },
+    {
+      "id": "unity-il2cpp",
+      "name": "Unity (IL2CPP)",
+      "primary": [
+        "**/*_Data/il2cpp_data/Metadata/global-metadata.dat",
+        "**/GameAssembly.dll"
+      ],
+      "primary_any": true,
+      "secondary": [
+        "**/UnityPlayer.dll",
+        "**/*_Data/globalgamemanagers",
+        "**/*_Data/il2cpp_data/Resources"
+      ],
+      "exclusions": [],
+      "min_secondary": 1
+    },
+    {
+      "id": "ue4",
+      "name": "Unreal Engine 4",
+      "primary": ["**/Content/Paks/*.pak"],
+      "primary_any": false,
+      "secondary": [
+        "**/*-Win64-Shipping.exe",
+        "**/Engine/Binaries/Win64",
+        "**/*.uproject"
+      ],
+      "exclusions": [
+        "**/Content/Paks/*.utoc"
+      ],
+      "min_secondary": 1
+    },
+    {
+      "id": "ue5",
+      "name": "Unreal Engine 5",
+      "primary": [
+        "**/Content/Paks/*.utoc",
+        "**/Content/Paks/*.ucas"
+      ],
+      "primary_any": true,
+      "secondary": [
+        "**/*-Win64-Shipping.exe",
+        "**/Engine/Binaries/Win64",
+        "**/Content/Paks/*.pak"
+      ],
+      "exclusions": [],
+      "min_secondary": 1
+    },
+    {
+      "id": "gms2",
+      "name": "GameMaker Studio 2",
+      "primary": [
+        "**/data.win",
+        "**/game.unx",
+        "**/game.ios"
+      ],
+      "primary_any": true,
+      "secondary": [
+        "**/audiogroup*.dat",
+        "**/options.ini"
+      ],
+      "exclusions": [],
+      "min_secondary": 1
+    },
+    {
+      "id": "lua-love2d",
+      "name": "LÖVE 2D (Lua)",
+      "primary": [
+        "**/*.love",
+        "**/main.lua"
+      ],
+      "primary_any": true,
+      "secondary": [
+        "**/love.dll",
+        "**/love.exe",
+        "**/conf.lua"
+      ],
+      "exclusions": [],
+      "min_secondary": 1
+    },
+    {
+      "id": "electron",
+      "name": "Electron / Chromium",
+      "primary": [
+        "**/resources/app.asar",
+        "**/resources/app/package.json"
+      ],
+      "primary_any": true,
+      "secondary": [
+        "**/electron.exe",
+        "**/chrome_*.dll",
+        "**/v8_context_snapshot.bin",
+        "**/resources.pak"
+      ],
+      "exclusions": [],
+      "min_secondary": 0
+    },
+    {
+      "id": "glaiel-engine",
+      "name": "Glaiel Game Engine (custom — Mewgenics, The End Is Nigh)",
+      "primary": ["**/*.gpak"],
+      "primary_any": false,
+      "secondary": [
+        "**/Mewgenics.exe",
+        "**/TheEndIsNigh.exe"
+      ],
+      "exclusions": [],
+      "min_secondary": 0
+    },
+    {
+      "id": "native",
+      "name": "Native / custom engine",
+      "primary": ["**/*.exe"],
+      "primary_any": false,
+      "secondary": [
+        "**/*.dll",
+        "**/*.dylib",
+        "**/*.so"
+      ],
+      "exclusions": [
+        "**/*.pck",
+        "**/*.gpak",
+        "**/*_Data/Managed/Assembly-CSharp.dll",
+        "**/*_Data/il2cpp_data/Metadata/global-metadata.dat",
+        "**/Content/Paks/*.pak",
+        "**/Content/Paks/*.utoc",
+        "**/data.win",
+        "**/resources/app.asar",
+        "**/UnityPlayer.dll",
+        "**/Godot_v3*",
+        "**/Godot_v4*"
+      ],
+      "min_secondary": 0
+    }
+  ]
+}

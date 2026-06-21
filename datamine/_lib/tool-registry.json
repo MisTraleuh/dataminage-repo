@@ -1,0 +1,222 @@
+{
+  "version": 2,
+  "_comment": "Registre des outils utilisés par le pipeline datamine. Les SHA-256 sont calculés manuellement la 1ère fois et committés (cf scripts/datamine/_lib/README.md). install-tool.mjs refuse tout download sans checksum référencé.",
+  "_changelog": {
+    "v2 (2026-04-26)": "STS2 lessons: gdre_tools v0.6.2 → v2.4.0 (Pack v3 / Godot 4.3+ support), ilspycmd 8.2 → 9.1 (.NET 6 → .NET 8). Ajout strategy 'fallback latest release' si pin incompatible avec le contenu."
+  },
+  "_strategy_fallback_latest": "Si le pin échoue (ex: gdre_tools v2.4.0 ne supporte pas Godot Pack v4 d'un futur Godot 4.6+), le skill /datamine peut tenter la dernière release stable via `install-tool.mjs <id> --use-latest`. À utiliser en dernier recours après une bascule plan B/C documentée.",
+  "engines_to_tools": {
+    "godot4-csharp": ["gdre_tools", "ilspycmd"],
+    "godot4-gdscript": ["gdre_tools"],
+    "godot3": ["gdre_tools"],
+    "unity-mono": ["AssetRipper", "ilspycmd"],
+    "unity-il2cpp": ["AssetRipper", "Il2CppDumper", "ilspycmd"],
+    "ue4": ["FModel"],
+    "ue5": ["FModel"],
+    "gms2": ["UndertaleModTool"],
+    "gms1": ["UndertaleModTool"],
+    "lua-love2d": [],
+    "electron": ["asar"],
+    "glaiel-engine": ["mewgenics_gpak_util"],
+    "native": []
+  },
+  "tools": {
+    "gdre_tools": {
+      "engines": ["godot4-csharp", "godot4-gdscript", "godot3"],
+      "install_via": "github-release",
+      "github_repo": "bruvzg/gdsdecomp",
+      "release_pin": "v2.4.0",
+      "_min_godot_pack_version_supported": 3,
+      "platforms": {
+        "win32-x64": {
+          "asset_pattern": "GDRE_tools-v.*-windows.zip",
+          "sha256": "213f265471a0b070ec85d2ad96801e9535657110d4e2de398ab5f8150752c5df",
+          "extract_to": ".tools/gdre_tools",
+          "binary": "gdre_tools.exe"
+        },
+        "linux-x64": {
+          "asset_pattern": "GDRE_tools-v.*-linux.zip",
+          "sha256": null,
+          "extract_to": ".tools/gdre_tools",
+          "binary": "gdre_tools"
+        },
+        "darwin-arm64": {
+          "fallback": "manual",
+          "manual_instructions": "Télécharger gdre_tools macOS depuis https://github.com/bruvzg/gdsdecomp/releases puis placer dans .tools/gdre_tools/. Le binaire n'est pas signé Apple, autoriser dans Réglages > Confidentialité."
+        },
+        "darwin-x64": {
+          "fallback": "manual",
+          "manual_instructions": "Idem darwin-arm64, choisir le binaire x64."
+        }
+      },
+      "verify_command": ["--version"],
+      "verify_pattern": "[0-9]+\\.[0-9]+"
+    },
+    "ilspycmd": {
+      "engines": ["godot4-csharp", "unity-mono", "unity-il2cpp"],
+      "install_via": "dotnet-tool",
+      "package_id": "ilspycmd",
+      "version_pin": "9.1.0.7988",
+      "platforms": "all",
+      "verify_command": ["--version"],
+      "verify_pattern": "[0-9]+\\.[0-9]+\\.[0-9]+",
+      "prerequisites": [
+        {
+          "type": "command",
+          "name": "dotnet",
+          "min_version": "8.0",
+          "install_hint": "Installer le .NET SDK 8.0+ depuis https://dotnet.microsoft.com/download"
+        }
+      ]
+    },
+    "AssetRipper": {
+      "engines": ["unity-mono", "unity-il2cpp"],
+      "install_via": "github-release",
+      "github_repo": "AssetRipper/AssetRipper",
+      "release_pin": "1.2.4",
+      "platforms": {
+        "win32-x64": {
+          "asset_pattern": "AssetRipper_GUI_Free_win-x64_.*\\.zip",
+          "sha256": null,
+          "extract_to": ".tools/AssetRipper",
+          "binary": "AssetRipper.GUI.Free.exe"
+        },
+        "linux-x64": {
+          "asset_pattern": "AssetRipper_GUI_Free_linux-x64_.*\\.zip",
+          "sha256": null,
+          "extract_to": ".tools/AssetRipper",
+          "binary": "AssetRipper.GUI.Free"
+        },
+        "darwin-arm64": {
+          "asset_pattern": "AssetRipper_GUI_Free_mac-arm64_.*\\.zip",
+          "sha256": null,
+          "extract_to": ".tools/AssetRipper",
+          "binary": "AssetRipper.GUI.Free.app/Contents/MacOS/AssetRipper.GUI.Free"
+        },
+        "darwin-x64": {
+          "asset_pattern": "AssetRipper_GUI_Free_mac-x64_.*\\.zip",
+          "sha256": null,
+          "extract_to": ".tools/AssetRipper",
+          "binary": "AssetRipper.GUI.Free.app/Contents/MacOS/AssetRipper.GUI.Free"
+        }
+      },
+      "verify_command": ["--help"],
+      "verify_pattern": "AssetRipper"
+    },
+    "Il2CppDumper": {
+      "engines": ["unity-il2cpp"],
+      "install_via": "github-release",
+      "github_repo": "Perfare/Il2CppDumper",
+      "release_pin": "v6.7.46",
+      "platforms": {
+        "win32-x64": {
+          "asset_pattern": "Il2CppDumper-net.*-v.*\\.zip",
+          "sha256": null,
+          "extract_to": ".tools/Il2CppDumper",
+          "binary": "Il2CppDumper.exe"
+        },
+        "linux-x64": {
+          "fallback": "manual",
+          "manual_instructions": "Il2CppDumper n'a pas de release Linux native. Utiliser via Mono ou WSL2."
+        },
+        "darwin-arm64": {
+          "fallback": "manual",
+          "manual_instructions": "Pas de release macOS officielle — utiliser Wine/CrossOver ou un VM Windows."
+        }
+      },
+      "verify_command": ["--help"],
+      "verify_pattern": "Il2CppDumper"
+    },
+    "FModel": {
+      "engines": ["ue4", "ue5"],
+      "install_via": "github-release",
+      "github_repo": "4sval/FModel",
+      "release_pin": "4.4.0.0",
+      "platforms": {
+        "win32-x64": {
+          "asset_pattern": "FModel-Setup-x64\\.exe",
+          "sha256": null,
+          "extract_to": ".tools/FModel",
+          "binary": "FModel.exe",
+          "post_install": "Lancer manuellement FModel.exe une fois pour qu'il télécharge ses mappings UE."
+        },
+        "darwin-arm64": {
+          "fallback": "manual",
+          "manual_instructions": "FModel macOS en beta. Voir https://github.com/4sval/FModel/wiki"
+        },
+        "linux-x64": {
+          "fallback": "manual",
+          "manual_instructions": "FModel n'a pas de release Linux. Utiliser via Wine."
+        }
+      }
+    },
+    "UndertaleModTool": {
+      "engines": ["gms1", "gms2"],
+      "install_via": "github-release",
+      "github_repo": "krzys-h/UndertaleModTool",
+      "release_pin": "0.8.2.0",
+      "platforms": {
+        "win32-x64": {
+          "asset_pattern": "GUI-windows-singlefile.zip",
+          "sha256": null,
+          "extract_to": ".tools/UndertaleModTool",
+          "binary": "UndertaleModTool.exe"
+        },
+        "linux-x64": {
+          "asset_pattern": "CLI-linux-singlefile.zip",
+          "sha256": null,
+          "extract_to": ".tools/UndertaleModTool",
+          "binary": "UndertaleModCli"
+        }
+      }
+    },
+    "asar": {
+      "engines": ["electron"],
+      "install_via": "npm-global",
+      "package_id": "@electron/asar",
+      "version_pin": "3.2.10",
+      "platforms": "all",
+      "verify_command": ["--version"],
+      "verify_pattern": "[0-9]+\\.[0-9]+\\.[0-9]+"
+    },
+    "mewgenics_gpak_util": {
+      "engines": ["glaiel-engine"],
+      "install_via": "github-release",
+      "github_repo": "Tiftid/mewgenics_gpak_util",
+      "release_pin": "v0.4.1",
+      "_release_note": "v0.4.1 'The revelation' (2026-02-21) corrige le bug du header (4 premiers octets = u32 file_count). Versions antérieures peuvent décompresser des données indéfinies sur certains assets.",
+      "platforms": {
+        "win32-x64": {
+          "asset_pattern": "mewgenics_gpak_util\\.exe",
+          "sha256": "fbd4c3dc392e727f21dc91bb16618b381034bc0d466a99aecc133afe01df9ab0",
+          "extract_to": ".tools/mewgenics_gpak_util",
+          "binary": "mewgenics_gpak_util.exe",
+          "bare_binary": true
+        },
+        "linux-x64": {
+          "asset_pattern": "mewgenics_gpak_util_linux",
+          "sha256": null,
+          "extract_to": ".tools/mewgenics_gpak_util",
+          "binary": "mewgenics_gpak_util",
+          "bare_binary": true
+        },
+        "darwin-arm64": {
+          "asset_pattern": "mewgenics_gpak_util_macos_arm64",
+          "sha256": "9f605f246fafac447db85335398a9382a686a727a4f7cd01e09b327af0fac24d",
+          "extract_to": ".tools/mewgenics_gpak_util",
+          "binary": "mewgenics_gpak_util",
+          "bare_binary": true
+        },
+        "darwin-x64": {
+          "asset_pattern": "mewgenics_gpak_util_macos",
+          "sha256": null,
+          "extract_to": ".tools/mewgenics_gpak_util",
+          "binary": "mewgenics_gpak_util",
+          "bare_binary": true
+        }
+      },
+      "verify_command": ["--help"],
+      "verify_pattern": "(unpack|gpak)"
+    }
+  }
+}
